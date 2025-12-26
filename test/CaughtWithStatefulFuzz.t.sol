@@ -12,3 +12,13 @@ contract CaughtWithStatefulFuzzTest is StdInvariant, Test  {
         caughtWithStatefulFuzz = new CaughtWithStatefulFuzz();
         targetContract(address(caughtWithStatefulFuzz));
     }
+
+       function testFuzzPasses(uint128 randomNumber) public {
+        caughtWithStatefulFuzz.doMoreMathAgain(randomNumber);
+        assert(caughtWithStatefulFuzz.storedValue() != 0);
+    }
+
+    function invariant_testMathDoesntReturnZero() public {
+        assert(caughtWithStatefulFuzz.storedValue() != 0);
+    }
+}
